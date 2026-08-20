@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://<DB_HOST>:<DB_PORT>/<DB_NAME>?useUnicode=true&characterEncoding=utf8mb4&serverTimezone=Asia/Seoul
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: <DB_USERNAME>
+    password: <DB_PASSWORD>
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+# The shared database should not be changed automatically by application startup.
+# Manage schema changes separately and use validate to check entity/schema alignment.
+
+# Garment analysis relay settings. Keep real values in the ignored application-local.yml
+# or provide them through environment variables.
+app:
+  # JWT_SECRET has no default; the app fails to start without it. Set it here for local runs,
+  # or as an environment variable for every other environment.
+  jwt:
+    secret: <JWT_SECRET>
+  ai-server:
+    # 분석 · 추천 · 이미지 생성이 한 서버에서 모두 처리됩니다.
+    base-url: ${AI_SERVER_BASE_URL:http://127.0.0.1:8001}
+    # AI 서버를 따로 떼어 운영할 때만 지정합니다. 비워 두면 base-url 을 그대로 씁니다.
+    daily-look-base-url: ${AI_SERVER_DAILY_LOOK_BASE_URL:}
+    api-key: ${AI_SERVER_API_KEY:}
+    timeout-seconds: ${AI_SERVER_TIMEOUT_SECONDS:60}
+    daily-look-timeout-seconds: ${AI_SERVER_DAILY_LOOK_TIMEOUT_SECONDS:300}
+  image-storage:
+    # Files are stored outside source resources. The default ./uploads is relative to Backend.
+    directory: ${CLOTHES_IMAGE_STORAGE_PATH:./uploads}
+    # Change this to the Raspberry Pi's externally reachable Backend URL when deployed.
+    public-base-url: ${CLOTHES_IMAGE_PUBLIC_BASE_URL:http://localhost:8080}
+  # OpenWeatherMap 5 Day / 3 Hour Forecast API key. Get one at https://home.openweathermap.org/api_keys
+  weather:
+    base-url: ${WEATHER_BASE_URL:https://api.openweathermap.org/data/2.5/forecast}
+    api-key: ${WEATHER_API_KEY:}

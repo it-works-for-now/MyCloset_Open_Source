@@ -1,0 +1,351 @@
+/* DailyLookResultPage(데일리룩 추천 결과) CSS */
+.daily-result-main {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 32px 20px 18px;
+}
+
+.daily-result-back-button {
+  position: absolute;
+  top: 28px;
+  left: max(20px, calc((100% - 680px) / 2));
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.daily-result-back-button img {
+  display: block;
+  width: 34px;
+  height: 34px;
+}
+
+.daily-result-back-button:hover,
+.daily-result-back-button:focus-visible {
+  transform: scale(1.06);
+}
+
+.daily-result-heading {
+  width: min(100%, 680px);
+  text-align: center;
+}
+
+.daily-result-heading h1 {
+  margin: 0;
+  color: #28292b;
+  font-size: clamp(30px, 3.6vw, 38px);
+  line-height: 1.18;
+  font-weight: 800;
+}
+
+.daily-result-query {
+  margin: 3px 0 12px;
+  color: #343538;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.daily-result-copy {
+  margin: 0;
+  color: #303236;
+  font-size: 16px;
+  line-height: 1.45;
+  word-break: keep-all;
+}
+
+.daily-result-grid {
+  width: min(100%, 300px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: 20px;
+}
+
+.daily-result-card {
+  min-width: 0;
+  padding: 10px 10px 11px;
+  border: 1px solid #e0e3e8;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.daily-result-image-wrap {
+  position: relative;
+}
+
+.daily-result-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1.27;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #ebe8e3;
+}
+
+.daily-result-image-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  color: #5b5e65;
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: center;
+  word-break: keep-all;
+}
+
+.daily-result-image-state p {
+  margin: 0;
+}
+
+.daily-result-image-state button {
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 4px;
+  color: #ffffff;
+  background: var(--button);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.daily-result-image-state button:hover,
+.daily-result-image-state button:focus-visible {
+  background: #1f2022;
+  transform: scale(1.04);
+}
+
+.daily-image-spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #d7d5d2;
+  border-top-color: #4f4035;
+  border-radius: 50%;
+  animation: daily-image-spin 900ms linear infinite;
+}
+
+@keyframes daily-image-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.daily-look-save-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  min-width: 68px;
+  height: 32px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 3px;
+  color: #ffffff;
+  background: #28292b;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.daily-look-save-button span {
+  display: block;
+}
+
+.daily-look-save-button:hover,
+.daily-look-save-button:focus-visible {
+  background: #1f2022;
+  box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.42);
+  transform: translateY(-1px);
+}
+
+.daily-result-card h2 {
+  overflow: hidden;
+  margin: 10px 4px 7px;
+  color: #687182;
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 500;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.look-reason,
+.used-clothes {
+  color: #3f332b;
+  font-size: 13px;
+  text-align: left;
+}
+
+.look-reason {
+  margin-bottom: 6px;
+}
+
+.look-reason h3,
+.used-clothes h3 {
+  margin: 0;
+  color: #3f332b;
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.look-reason p {
+  margin: 8px 4px 0;
+  color: #5b5e65;
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: left;
+  word-break: keep-all;
+}
+
+.used-clothes ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 6px;
+  margin: 9px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.used-clothes-message {
+  margin: 8px 4px 0;
+  color: #5b5e65;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.used-clothes li {
+  padding: 5px 8px;
+  border-radius: 999px;
+  color: #5b5e65;
+  background: #f1efec;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.daily-result-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.daily-retry-button {
+  min-width: 132px;
+  height: 40px;
+  border: 0;
+  border-radius: 4px;
+  color: #ffffff;
+  background: var(--button);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.daily-previous-button {
+  min-width: 74px;
+}
+
+.daily-retry-button:hover,
+.daily-retry-button:focus-visible {
+  background: #1f2022;
+  box-shadow: 0 8px 18px rgba(47, 48, 50, 0.18);
+  transform: scale(1.04);
+}
+
+.daily-retry-button:disabled {
+  opacity: 0.55;
+  box-shadow: none;
+  cursor: default;
+  transform: none;
+}
+
+.daily-retry-button:disabled:hover,
+.daily-retry-button:disabled:focus-visible {
+  background: var(--button);
+  box-shadow: none;
+  transform: none;
+}
+
+@media (max-width: 810px) {
+  .daily-result-main {
+    padding: 30px 16px 24px;
+  }
+
+  .daily-result-back-button {
+    top: 28px;
+    left: 16px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .daily-result-back-button img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .daily-result-copy {
+    font-size: 14px;
+  }
+
+  .daily-result-grid {
+    grid-template-columns: 1fr;
+    max-width: 300px;
+  }
+
+  .daily-result-actions {
+    margin-top: 22px;
+  }
+}
+
+@media (max-width: 420px) {
+  .daily-result-heading h1 {
+    font-size: 29px;
+  }
+
+  .daily-result-query,
+  .daily-result-copy {
+    font-size: 14px;
+  }
+
+  .daily-result-card {
+    border-radius: 16px;
+  }
+
+  .daily-look-save-button {
+    min-width: 62px;
+    height: 30px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+
+  .daily-result-actions {
+    width: min(100%, 300px);
+    gap: 8px;
+  }
+
+  .daily-retry-button {
+    min-width: 0;
+    flex: 1;
+    padding: 0 10px;
+    font-size: 14px;
+  }
+
+  .daily-previous-button {
+    flex: 0 0 72px;
+  }
+}

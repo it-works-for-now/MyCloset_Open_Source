@@ -1,0 +1,978 @@
+:root {
+  --page: #f5f3f1;
+  --text: #2f3032;
+  --muted: #6e7783;
+  --line: #e6e3df;
+  --brand: #594b3f;
+  --button: #28292b;
+  --card: #ffffff;
+  --accent: #4d8ff7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+  color: var(--text);
+  background: var(--page);
+}
+
+button,
+a {
+  font: inherit;
+}
+
+button {
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 10px 0 19px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--line);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  color: var(--brand);
+  background: transparent;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.logo-box {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  margin-left: 1px;
+  padding: 0 7px;
+  color: #ffffff;
+  background: var(--brand);
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 46px;
+  flex: 1;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.nav a {
+  position: relative;
+  color: #2f3134;
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav a::after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: #2f3134;
+  border-radius: 999px;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 160ms ease;
+}
+
+.nav a:hover::after,
+.nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.nav a:focus-visible,
+.drawer-nav a:focus-visible,
+.text-link:focus-visible,
+.logo:focus-visible,
+.profile-link:focus-visible,
+.admin-header-link:focus-visible,
+.menu-button:focus-visible,
+.drawer-close:focus-visible,
+.login-button:focus-visible,
+.submit-button:focus-visible {
+  outline: 2px solid rgba(47, 48, 50, 0.28);
+  outline-offset: 3px;
+}
+
+.login-button {
+  min-width: 91px;
+  height: 38px;
+  border: 0;
+  border-radius: 3px;
+  color: #ffffff;
+  background: var(--button);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-button:hover,
+.login-button:focus-visible,
+.submit-button:hover,
+.submit-button:focus-visible {
+  background: #1f2022;
+  box-shadow: 0 8px 18px rgba(47, 48, 50, 0.18);
+  transform: scale(1.04);
+}
+
+.topbar-login {
+  justify-content: flex-start;
+}
+
+.header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.profile-link {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.admin-header-link {
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid #d8d3ce;
+  border-radius: 3px;
+  color: #2f3032;
+  background: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.admin-header-link:hover,
+.admin-header-link:focus-visible {
+  background: #f3f0ed;
+}
+
+.profile-link img {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.menu-button {
+  width: 38px;
+  height: 38px;
+  display: none;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menu-button span {
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--button);
+}
+
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: flex-end;
+  visibility: hidden;
+  background: rgba(47, 48, 50, 0);
+  pointer-events: none;
+  transition:
+    visibility 180ms ease,
+    background-color 180ms ease;
+  z-index: 20;
+}
+
+.drawer-backdrop.is-open {
+  visibility: visible;
+  background: rgba(47, 48, 50, 0.32);
+  pointer-events: auto;
+}
+
+.side-drawer {
+  width: min(82vw, 292px);
+  height: 100%;
+  padding: 18px 18px 24px;
+  background: #ffffff;
+  box-shadow: -18px 0 36px rgba(47, 48, 50, 0.18);
+  transform: translateX(100%);
+  transition: transform 220ms ease;
+}
+
+.drawer-backdrop.is-open .side-drawer {
+  transform: translateX(0);
+}
+
+.drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 38px;
+  margin-bottom: 14px;
+}
+
+.drawer-head strong {
+  color: var(--text);
+  font-size: 16px;
+}
+
+.drawer-close {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 3px;
+  color: var(--text);
+  background: transparent;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.drawer-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 6px;
+  border-radius: 3px;
+  color: #2f3134;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.drawer-nav a:hover,
+.drawer-nav a:focus-visible,
+.drawer-nav a[aria-current="page"] {
+  background: #f2f0ed;
+}
+
+.user-chip {
+  max-width: 160px;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* HomePage, ComingSoonPage가 공유하는 스타일 */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 24px 20px;
+}
+
+.hero {
+  width: min(100%, 760px);
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(34px, 4.15vw, 45px);
+  line-height: 1.24;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.hero p {
+  margin: 8px 0 16px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+
+.footer {
+  padding: 15px 24px 20px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 12px;
+}
+
+
+/* 모달 컴포넌트를 사용하는 페이지에서 공유되는 모달 스타일 */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  align-items: start;
+  justify-items: center;
+  padding: 16px;
+  overflow-y: auto;
+  background: rgba(47, 48, 50, 0.28);
+  z-index: 100;
+}
+
+.modal-backdrop + .modal-backdrop {
+  z-index: 101;
+}
+
+.modal-backdrop.is-closing {
+  pointer-events: none;
+  animation: modal-backdrop-exit 180ms ease-in forwards;
+}
+
+.modal {
+  width: min(100%, 310px);
+  max-height: calc(100dvh - 32px);
+  margin: auto 0;
+  padding: 28px 26px 24px;
+  overflow-y: auto;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 18px 48px rgba(47, 48, 50, 0.22);
+  text-align: center;
+}
+
+.modal-backdrop.is-closing .modal {
+  animation: modal-exit 180ms ease-in forwards;
+}
+
+.modal h2 {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 24px;
+  line-height: 1.35;
+}
+
+.modal p {
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.modal-button {
+  width: 100%;
+  height: 38px;
+  border: 0;
+  border-radius: 3px;
+  color: #ffffff;
+  background: var(--button);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal-button:hover,
+.modal-button:focus-visible {
+  background: #1f2022;
+  box-shadow: 0 8px 18px rgba(47, 48, 50, 0.18);
+  transform: scale(1.03);
+}
+
+.logo:hover {
+  transform: translateY(-1px);
+}
+
+.footer-login {
+  padding-bottom: 19px;
+}
+
+.form-error {
+  margin: 2px 0 6px;
+  color: #c74747;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: left;
+}
+
+/* LoginPage, SignupPage, MyPage가 공유하는 스타일 */
+.login-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 78px 24px 40px;
+}
+
+.login-panel {
+  width: min(100%, 302px);
+  min-height: 334px;
+  padding: 22px 30px 28px;
+  background: var(--card);
+  border-radius: 28px;
+  text-align: center;
+}
+
+.login-panel h1 {
+  margin: 0 0 20px;
+  font-size: 30px;
+  line-height: 1.35;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.login-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: #3f4144;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.field-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.field-error {
+  color: #c74747;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.login-form input {
+  width: 100%;
+  height: 33px;
+  padding: 0 14px;
+  border: 1px solid #e3e7ec;
+  border-radius: 3px;
+  color: var(--text);
+  background: #ffffff;
+  font-size: 14px;
+  text-align: center;
+  outline: none;
+}
+
+.login-form input::placeholder {
+  color: #9aa5b1;
+  opacity: 1;
+}
+
+.login-form input:focus {
+  border-color: #b9c1ca;
+  box-shadow: 0 0 0 2px rgba(47, 48, 50, 0.07);
+}
+
+.login-form input[aria-invalid="true"] {
+  border-color: #d45a5a;
+  box-shadow: 0 0 0 2px rgba(212, 90, 90, 0.11);
+}
+
+.submit-button {
+  width: 100%;
+  height: 36px;
+  margin-top: 2px;
+  border: 0;
+  border-radius: 3px;
+  color: #ffffff;
+  background: var(--button);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.submit-button:disabled {
+  background: #9a9a9a;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.signup-line {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.signup-line a,
+.text-link {
+  display: inline;
+  padding: 0;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  font-size: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.text-link:hover,
+.text-link:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.signup-panel {
+  width: min(100%, 302px);
+  min-height: 438px;
+  padding: 24px 30px 14px;
+}
+
+.signup-panel h1 {
+  margin-bottom: 8px;
+}
+
+.signup-form {
+  gap: 7px;
+}
+
+.signup-form label {
+  gap: 4px;
+}
+
+.signup-form .submit-button {
+  margin-top: 8px;
+}
+
+/* ClosetPage, StylingPage, StylingAddPage가 공유하는 스타일 */
+.closet-main {
+  flex: 1;
+  width: min(100%, 820px);
+  margin: 0 auto;
+  padding: 78px 20px 50px;
+  text-align: center;
+}
+
+
+.closet-save-notice {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 20;
+  width: min(calc(100vw - 48px), 280px);
+  margin: 0;
+  padding: 76px 24px 28px;
+  border: 1px solid #cfe5d8;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1f5c3f;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  box-shadow: 0 14px 32px rgba(30, 54, 42, 0.2);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.closet-save-notice::before {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #2d7a55;
+  color: #ffffff;
+  content: "\2713";
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+  place-items: center;
+  transform: translateX(-50%);
+}
+
+.closet-tools {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: min(100%, 420px);
+  margin: 0 auto 10px;
+}
+
+.closet-search {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.closet-search input {
+  width: 100%;
+  height: 39px;
+  padding: 0 50px 0 21px;
+  border: 2px solid #1f2022;
+  border-radius: 8px;
+  color: var(--text);
+  background: transparent;
+  font-size: 17px;
+  outline: none;
+}
+
+.closet-search input:focus {
+  box-shadow: 0 0 0 3px rgba(47, 48, 50, 0.12);
+}
+
+.closet-search svg {
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  width: 25px;
+  height: 25px;
+  fill: none;
+  stroke: #18191a;
+  stroke-linecap: round;
+  stroke-width: 2.2;
+  pointer-events: none;
+}
+
+.closet-add-button {
+  display: grid;
+  place-items: center;
+  position: fixed;
+  right: 33px;
+  bottom: 31px;
+  width: 46px;
+  height: 46px;
+  z-index: 5;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.closet-add-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.closet-add-button:hover,
+.closet-add-button:focus-visible {
+  filter: brightness(1.15);
+  transform: scale(1.06);
+}
+
+.scroll-top-button {
+  position: fixed;
+  right: 37px;
+  bottom: 91px;
+  z-index: 5;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.scroll-top-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.scroll-top-button:hover,
+.scroll-top-button:focus-visible {
+  filter: brightness(1.15);
+  transform: scale(1.06);
+}
+
+.closet-content {
+  min-height: 250px;
+}
+
+.clothes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.clothes-card {
+  min-width: 0;
+  padding: 10px 10px 11px;
+  border: 0;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  text-align: inherit;
+}
+
+.clothes-card:hover,
+.clothes-card:focus-visible {
+  box-shadow: 0 10px 22px rgba(47, 48, 50, 0.13);
+  transform: translateY(-2px);
+}
+
+.clothes-card img,
+.clothes-image-placeholder {
+  width: 100%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  object-fit: cover;
+  background: #eeece9;
+}
+
+.clothes-image-placeholder {
+  color: #8a8178;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.clothes-card h2 {
+  overflow: hidden;
+  margin: 9px 4px 0;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.closet-empty,
+.closet-message {
+  min-height: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  color: #747679;
+  font-size: 17px;
+}
+
+.closet-empty p {
+  margin: 0;
+}
+
+.closet-login-button {
+  min-width: 132px;
+  height: 40px;
+  border: 0;
+  border-radius: 4px;
+  color: #fff;
+  background: var(--button);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.closet-login-button:hover,
+.closet-login-button:focus-visible {
+  background: #1f2022;
+  box-shadow: 0 8px 18px rgba(47, 48, 50, 0.18);
+  transform: scale(1.04);
+}
+
+/* BoardPage, ClosetPage가 공유하는 스타일 */
+.modal-cancel-button {
+  height: 40px;
+  border: 0;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.modal-cancel-button {
+  color: #4d4e50;
+  background: #ebe8e5;
+}
+.modal-cancel-button:hover,
+.modal-cancel-button:focus-visible {
+  background: #dfdbd7;
+}
+
+@media (max-width: 810px) {
+  .topbar {
+    height: 54px;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px 8px 16px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .menu-button {
+    display: inline-flex;
+    order: 3;
+  }
+
+  .header-actions {
+    order: 2;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .user-chip {
+    max-width: 120px;
+  }
+
+  .profile-link img {
+    display: none;
+  }
+
+  .main {
+    padding-top: 56px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .login-main {
+    padding-top: 56px;
+  }
+
+  .closet-main {
+    padding-top: 52px;
+  }
+
+  .clothes-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .login-button {
+    min-width: 84px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .login-panel {
+    padding: 22px 22px 26px;
+    border-radius: 22px;
+  }
+
+  .closet-main {
+    padding: 40px 16px;
+  }
+
+  .closet-add-button {
+    right: 18px;
+    bottom: 18px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .scroll-top-button {
+    right: 21px;
+    bottom: 76px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .clothes-grid {
+    gap: 12px;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.modal-button:disabled {
+  color: #ffffff;
+  background: #a49f99;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@keyframes modal-backdrop-exit {
+  to {
+    background: rgba(47, 48, 50, 0);
+  }
+}
+
+@keyframes modal-exit {
+  to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-backdrop.is-closing,
+  .modal-backdrop.is-closing .modal {
+    animation-duration: 1ms;
+  }
+}

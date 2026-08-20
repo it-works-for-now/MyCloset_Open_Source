@@ -1,0 +1,22 @@
+{
+  "name": "mycloset-front",
+  "private": true,
+  "scripts": {
+    "setup": "npm install",
+    "predev": "npm install",
+    "dev": "vite --host 0.0.0.0",
+    "prebuild": "npm install",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"*.{json,html}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\" \"*.{json,html}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.9.6",
+    "vite": "^7.0.0"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

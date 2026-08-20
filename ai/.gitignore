@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.test-deps/
+.venv/
+.env
+.model-cache/
+generated-images/
+*.png
+*.jpg
+*.jpeg
+server-service.log
+*.log

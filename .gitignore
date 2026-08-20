@@ -1,0 +1,44 @@
+# ---- 공통 ----
+.env
+.env.local
+.env.*.local
+!.env.example
+!.env.production
+*.log
+
+# ---- back (Spring Boot / Gradle) ----
+back/.gradle/
+back/build/
+back/bin/
+back/out/
+back/uploads/
+back/src/main/resources/application-local.yml
+HELP.md
+
+# ---- front (Node / Vite) ----
+front/node_modules/
+front/dist/
+
+# ---- ai (Python) ----
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.test-deps/
+.ruff_cache/
+.model-cache/
+.hf-cache/
+generated-images/
+
+# ---- IDE / OS ----
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+.DS_Store
+Thumbs.db
+desktop.ini

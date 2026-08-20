@@ -1,0 +1,43 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: MyClosetBackend
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:validate}
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: Asia/Seoul
+  servlet:
+    multipart:
+      # The service applies the actual 15 MiB image limit after multipart parsing.
+      # Leave room for multipart headers and the boundary.
+      max-file-size: 16MB
+      max-request-size: 16MB
+
+app:
+  cors:
+    allowed-origins: http://localhost:5173,http://127.0.0.1:5173
+  jwt:
+    secret: ${JWT_SECRET}
+    access-token-expiration-ms: 604800000
+  ai-server:
+    base-url: ${AI_SERVER_BASE_URL:http://127.0.0.1:8001}
+    daily-look-base-url: ${AI_SERVER_DAILY_LOOK_BASE_URL:}
+    api-key: ${AI_SERVER_API_KEY:}
+    timeout-seconds: ${AI_SERVER_TIMEOUT_SECONDS:60}
+    daily-look-timeout-seconds: ${AI_SERVER_DAILY_LOOK_TIMEOUT_SECONDS:180}
+  image-storage:
+    directory: ${CLOTHES_IMAGE_STORAGE_PATH:./uploads}
+    public-base-url: ${CLOTHES_IMAGE_PUBLIC_BASE_URL:http://localhost:8080}
+  weather:
+    base-url: ${WEATHER_BASE_URL:https://api.openweathermap.org/data/2.5/forecast}
+    api-key: ${WEATHER_API_KEY:}
+    timeout-seconds: ${WEATHER_TIMEOUT_SECONDS:10}

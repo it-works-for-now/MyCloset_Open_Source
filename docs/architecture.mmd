@@ -1,0 +1,20 @@
+flowchart LR
+    U([사용자]) --> F
+    F["<b>front</b><br/>React 18 · Vite 7<br/><i>:5173</i>"]
+    B["<b>back</b><br/>Spring Boot 4.1 · JPA<br/><i>:8080</i>"]
+    A["<b>ai</b><br/>FastAPI · CUDA<br/><i>:8001</i>"]
+    M1["Qwen2.5-VL-3B<br/><i>사진 분석</i>"]
+    M2["Qwen3-4B<br/><i>코디 조합</i>"]
+    M3["SANA 1.5<br/><i>착장 이미지</i>"]
+    DB[("MariaDB<br/><i>표 14개</i>")]
+    FS[/"로컬 디스크<br/><i>/uploads</i>"/]
+    W{{"OpenWeather API"}}
+
+    F -->|"/api"| B
+    B --> A
+    B --> DB
+    B --> FS
+    B --> W
+    A --- M1
+    A --- M2
+    A --- M3

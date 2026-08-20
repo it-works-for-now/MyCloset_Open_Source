@@ -1,0 +1,29 @@
+sequenceDiagram
+    autonumber
+    participant U as 사용자
+    participant F as front · React
+    participant B as back · Spring Boot
+    participant A as ai · FastAPI
+    participant D as MariaDB · 디스크
+
+    U->>F: 옷 사진 업로드
+    F->>B: POST /api/clothes/analysis
+    B->>A: POST /v1/garment-analysis
+    A-->>B: 카테고리 · 색상 · 계절 · 보온도
+    B-->>F: 등록 폼 초안
+    U->>F: 확인 후 저장
+    F->>B: POST /api/clothes
+    B->>D: INSERT clothes
+
+    U->>F: 상황 입력 + 날씨 반영
+    F->>B: POST /api/daily-look/recommend
+    B->>D: SELECT clothes
+    B->>A: POST /v1/daily-look/recommend
+    A-->>B: 코디 조합 · 스타일 키워드
+    B-->>F: 추천 코디
+    U->>F: 코디 선택
+    F->>B: POST /api/daily-look/image
+    B->>A: POST /v1/daily-look/image
+    A-->>B: PNG
+    B->>D: 파일 저장 후 URL 기록
+    B-->>F: imageUrl

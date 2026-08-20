@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  back:
+    name: back · Java 21
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: gradle
+      - name: Build and test
+        working-directory: back
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon build
+
+  front:
+    name: front · Node 20
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: front/package-lock.json
+      - name: Install
+        working-directory: front
+        run: npm ci
+      - name: Format check
+        working-directory: front
+        run: npm run format:check
+      - name: Build
+        working-directory: front
+        run: npm run build
+
+  ai:
+    name: ai · Python 3.12
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Lint and format check
+        run: |
+          pip install ruff
+          ruff check ai
+          ruff format --check ai
+      - name: Import check
+        working-directory: ai
+        run: python -m compileall -q app
